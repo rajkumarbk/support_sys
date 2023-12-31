@@ -9,13 +9,16 @@
                 <tree>
                     <field name="c_id"/>
                     <field name="name"/>
-<!--                    <field name="message"/>-->
+                    <!--                    <field name="message"/>-->
                     <field name="image" string="Image" widget="image" options="{'size':[45,45]}"/>
                     <field name="issue_description"/>
                     <field name="support_type"/>
-                    <field name="assigned_employee" />
-                    <field name="status" />
-                    <field name="month_field"  string="Date"/>
+                    <field name="assigned_employee"/>
+                    <field name="status"/>
+                    <field name="day_field"/>
+
+                    <field name="month_field" string="Date"/>
+
                 </tree>
             </field>
         </record>
@@ -28,21 +31,26 @@
                 <form>
                     <sheet>
                         <group>
-                        <group>
-                            <field name="c_id"/>
-                            <field name="name"/>
+                            <group>
+                                <field name="c_id"/>
+                                <field name="name"/>
 
-                            <field name="issue_description"/>
-                            <field name="month_field" string="Date"/>
-                        </group>
-                        <group>
-                            <field name="support_type"/>
-                            <field name="image" />
-                            <field name="status" />
-                            <field name="assigned_employee"/>
-                        </group>
+                                <field name="issue_description"/>
+                                <field name="month_field" string="Date"/>
+                            </group>
+                            <group>
+                                <field name="support_type"/>
+                                <field name="image"/>
+                                <field name="status"/>
+                                <field name="assigned_employee"/>
+                            </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -61,17 +69,18 @@
             <field name="name">Ticket List</field>
             <field name="model">ticket.raise</field>
             <field name="arch" type="xml">
-                <tree string="Ticket Information">
-<!--                    <field name="name"/>-->
+                <tree string="Ticket Information" default_order="ticket_id desc">
+                    <!--                    <field name="name"/>-->
                     <field name="ticket_id"/>
                     <field name="ticket_type"/>
-                    <field name="employee"/>
+                    <field name="product"/>
                     <field name="message"/>
                     <field name="priority"/>
-                    
+
                     <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
-                    
+
                     <field name="nepalidatepicker"/>
+                    <field name="progress" decoration-info="progress=='New'" decoration-warning="progress=='In progress'" decoration-success="progress=='Completed'" decoration-danger="progress=='Cancelled'" widget="badge" />
                 </tree>
             </field>
         </record>
@@ -83,24 +92,43 @@
             <field name="model">ticket.raise</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button id="action_confirm" name="action_confirm" string="Confirm" class="btn-primary"
+                                type="object"/>
+                        <button id="action_completed" name="action_completed" string="COMPLETE" class="btn-success"
+                                type="object"/>
+
+                        <button id="action_decline" name="action_decline" string="DECLINE" class="btn-danger"
+                                type="object"/>
+
+
+                        <field name="progress" widget="statusbar" nolabel="1"
+                               statusbar_visible="New,In Progress,Completed,Cancelled"/>
+                    </header>
                     <sheet>
                         <group>
-
-                            <field name="ticket_type"/>
-                            <field name="employee"/>
-                            <field name="message"/>
-                            <field name="priority"/>
-                            <field name="nepalidatepicker"/>
                             <group>
-                            <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+                                <field name="ticket_type"/>
+                                <field name="product"/>
+                                <field name="message"/>
+                                <field name="priority"/>
+                                <field name="nepalidatepicker"/>
+                            </group>
+                            <group>
+                                <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
                             </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
 
                 </form>
             </field>
         </record>
-     
+
         <!-- Action for Opening Ticket List View -->
         <record model="ir.actions.act_window" id="action_ticket_list">
             <field name="name">Ticket Window</field>
@@ -108,13 +136,14 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_ticket_list"/>
         </record>
- 
-            <record model="ir.ui.view" id="view_employee_list">
+
+        <record model="ir.ui.view" id="view_employee_list">
             <field name="name">Employee</field>
             <field name="model">employee.details</field>
             <field name="arch" type="xml">
                 <tree string="Employee Details">
-                
+                     <field name="employee_id"/>
+
                     <field name="employee_name"/>
                     <field name="contact"/>
                     <field name="address"/>
@@ -122,7 +151,7 @@
                     <field name="position"/>
                     <field name="salary"/>
                     <field name="date_joined"/>
-                    
+
                 </tree>
             </field>
         </record>
@@ -137,7 +166,7 @@
                     <sheet>
                         <group>
 
-                            
+
                             <field name="employee_name"/>
                             <field name="contact"/>
                             <field name="address"/>
@@ -145,16 +174,21 @@
                             <field name="position"/>
                             <field name="salary"/>
                             <field name="date_joined"/>
-                            
+
                             <!-- Add more fields as needed -->
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
 
                 </form>
             </field>
         </record>
-        
-       
+
+
         <record model="ir.actions.act_window" id="action_employee_list">
             <field name="name">Employee</field>
             <field name="res_model">employee.details</field>
@@ -162,55 +196,73 @@
             <field name="view_id" ref="view_employee_list"/>
         </record>
 
-<!-- expense code goes here -->
-   <record model="ir.ui.view" id="view_expense_list">
-            <field name="name">Expense</field>
+        <!-- expense code goes here -->
+        <record model="ir.ui.view" id="view_expense_list">
+            <field name="name">Expense Request</field>
             <field name="model">employee.expense</field>
             <field name="arch" type="xml">
-                <tree string="Expenses">
-                
-                    <field name="expense_date"/>
+                <tree string="Expenses" >
+                    <field name="nepalidatepicker"/>
                     <field name="amount"/>
                     <field name="description"/>
-                    <field name="status"/>
+<!--                    <field name="status"/>-->
                     <field name="expense_category"/>
                     <field name="starting_location"/>
                     <field name="ending_location"/>
-                    <field name="bill_image"/>
-                    
+                    <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+                    <field name="status" decoration-info="status=='New'" decoration-success="status=='Accepted'" decoration-danger="status=='Rejected'" widget="badge" />
+                    <field name="hotel_name"/>
+                    <field name="hotel_address"/>
+                    <field name="hotel_phone"/>
                 </tree>
             </field>
         </record>
 
 
         <!-- Form View for Ticket -->
-        <record model="ir.ui.view" id="view_employee_form">
+        <record model="ir.ui.view" id="view_expense_form">
             <field name="name">Employee</field>
             <field name="model">employee.expense</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button id="action_accepted" name="action_accepted" string="ACCEPT" class="btn-success"
+                                type="object"/>
+                        <button id="action_rejected" name="action_rejected" string="REJECT" class="btn-danger"
+                                type="object"/>
+
+                        <field name="status" widget="statusbar" nolabel="1" statusbar_visible="Accepted,Rejected"/>
+                    </header>
                     <sheet>
                         <group>
 
-                            
-                            <field name="expense_date"/>
-                        <field name="amount"/>
-                        <field name="description"/>
-                        <field name="status"/>
-                        <field name="expense_category"/>
-                        <field name="starting_location"/>
-                        <field name="ending_location"/>
-                        <field name="bill_image"/>
-                            
+
+                            <field name="nepalidatepicker"/>
+                            <field name="amount"/>
+                            <field name="description"/>
+<!--                            <field name="status"/>-->
+                            <field name="expense_category"/>
+                            <field name="starting_location"/>
+                            <field name="ending_location"/>
+                            <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+                            <field name="hotel_name"/>
+                            <field name="hotel_address"/>
+                            <field name="hotel_phone"/>
+
                             <!-- Add more fields as needed -->
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'nepalidatepicker'}"/>
+                    </div>
 
                 </form>
             </field>
         </record>
-        
-       
+
+
         <record model="ir.actions.act_window" id="action_expense_list">
             <field name="name">Expenses</field>
             <field name="res_model">employee.expense</field>
@@ -219,18 +271,14 @@
         </record>
 
 
-
-
-
         <record id="sequence_ticket" model="ir.sequence">
             <field name="name">Ticket Sequence</field>
             <field name="code">ticket.raise</field>
             <field name="prefix">Tic.No.</field>
             <field name="padding">2</field>
-            <field name="number_increment" eval="1" />
+            <field name="number_increment" eval="1"/>
         </record>
-1
-        
+        1
 
 
         <!-- Reporting Tree View -->
@@ -259,7 +307,7 @@
         <menuitem name="Overview" id="support_sys_menu_1" parent="menu_root" action="action_support_sys_list"/>
         <menuitem name="Ticket" id="support_sys_menu_2" parent="menu_root" action="action_ticket_list"/>
         <menuitem name="Employee" id="support_sys_menu_3" parent="menu_root" action="action_employee_list"/>
-        <menuitem name="Reporting" id="support_sys_menu_4" parent="menu_root" action="action_reporting"/>
+        <!--<menuitem name="Reporting" id="support_sys_menu_4" parent="menu_root" action="action_reporting"/>-->
         <menuitem name="Configuration" id="support_sys_menu_5" parent="menu_root" action="action_support_sys_list"/>
 
         <!-- Dashboard Action -->
@@ -273,14 +321,14 @@
         </record>
 
         <record id="action_expense_list" model="ir.actions.act_window">
-            <field name="name">Expense</field>
+            <field name="name">Expense Request</field>
         </record>
 
         <!-- Menu item for Dashboard -->
         <menuitem id="menu_reporting_dashboard"
                   name="Dashboard"
                   action="action_backend_dashboard"
-                  parent="support_sys_menu_4"
+                  parent="support_sys_menu_1"
                   sequence="1"/>
 
         <menuitem id="menu_employee_details"
@@ -291,12 +339,11 @@
 
 
         <menuitem id="menu_employee_expense"
-                  name="Expense"
+                  name="Expense Request"
                   action="action_expense_list"
                   parent="support_sys_menu_3"
-                  sequence="2"/>          
+                  sequence="2"/>
 
-        
 
-   </data>
+    </data>
 </odoo>

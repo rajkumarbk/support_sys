@@ -7,17 +7,19 @@
     'sequence': 1,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','web','sale','board'],
+    'depends': ['base','web','sale','board','mail'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/homepage.xml',
         'views/views.xml',
-        'views/email_template.xml',
-        'views/expense.xml',
-        'views/ticket_history.xml',
+        'views/homepage.xml',
         'views/new_ticket.xml',
+        'views/ticket_history.xml',
+        'views/expense.xml',       
+        'views/expense_history.xml',
+        'views/email_template.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
@@ -25,8 +27,8 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'support_sys/static/src/components/*/.js',
-            'support_sys/static/src/components/*/.xml',
+            'support_sys/static/src/components/**/*.js',
+            'support_sys/static/src/components/**/*.xml',
             # 'support_sys/static/src/scss/*/.scss',
             # 'support_sys/static/src/components/chart_renderer/chart_renderer.js',
             # 'support_sys/static/src/components/chart_renderer/chart_renderer.xml',

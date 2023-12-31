@@ -25,7 +25,8 @@
                     </div>
                     <!-- KPI Cards -->
                    <div class="row">
-                        <KpiCard name="'No. Of Problem'" value="state.problem.value" percentage="state.problem.percentage"/>
+                       <KpiCard name="'No. Of Problem'" value="state.problem.value" percentage="state.problem.percentage"/>
+
                         <KpiCard name="'Progress'" value="state.problem.progress" percentage="20"/>
                         <KpiCard name="'Success '" value="state.problem.finished" percentage="10"/>
                         <KpiCard name="'New'" value="state.problem.fresh" percentage="-10"/>
@@ -74,6 +75,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
         <div class="row m-2">
@@ -84,8 +86,25 @@
             <div class="col-lg-3 m-1 p-0">
                 <CustomerCard class="shadow-sm" name="'ISP Support '" email="'saugat'" successRate="'20%'" unsignedCount="8" openCount="2" urgentCount="4" failCount="10"/>
             </div>
+             <div class="col-lg-5">
+                    <div class="row">
+                        <div class="col m-0 p-0">
+                            <div class="shadow-sm border m-2 p-4 bg-white">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <h3 class="text-primary fw-bold">Daily Report</h3>
+                                    <div class="px-3 py-1 bg-primary cursor-pointer">
+                                        <span class="fa fa-arrow-right text-white"/>
+                                    </div>
+                                </div>
+                                <ChartRenderer type="'bar'" title="'Daily Report'" config="state.getMonthlySupport"/>
+                            </div>
+                        </div>
+                    </div>
+             </div>
+
 
         </div>
+
         </div>
     </t>
 </templates>

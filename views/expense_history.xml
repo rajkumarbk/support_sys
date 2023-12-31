@@ -1,7 +1,8 @@
 <odoo>
 <data>
- <template id="ticket_history" name="ticket_history">
+ <template id="expense_history" name="expense_history">
             <t t-call="website.layout">
+            
    <style>
 
     #sidebar {
@@ -49,56 +50,70 @@
     <a href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
     <div class="submenu" id="clientSubMenu">
     <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
-      <a class="active" href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
-      
+      <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
     </div>
     <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
     <div class="submenu" id="employeeSubMenu">
       <a href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
-      <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
+      <a class="active" href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
+    <a href="#"><i class="fa fa-fw fa-user-circle"/>Profile</a>
+    <a href="#"><i class="fa fa-fw fa-wrench"/>Settings</a>
   </div>
+
+<div class="content">
 
 <div class="container-fluid" style="width:85%; margin-left:15%; margin-top:1%;">
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" >
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Ticket History</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Expense History</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive" >
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                         <tr class="active">
-                            <th>Ticket ID</th>
-                            <th>Ticket Type</th>
-                            <th>Product</th>
-                            <th>Priority</th>
-                            <th>Message</th>
-                            <th>Photo</th>
-                            <th>Requested Date</th>
+                            <th>Date</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Hotel Name</th>
+                            <th>Hotel Address</th>
+                            <th>Hotel Contact</th>
+                            <th>Image</th>
+                            <th>Description</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <t t-foreach="records" t-as="data">
                             <tr>
                                 <td>
-                                    <t t-out="data['ticket_id']"/>
+                                    <t t-out="data['nepalidatepicker']"/>
                                 </td>
                                 <td>
-                                    <t t-out="data['ticket_type']"/>
+                                    <t t-out="data['starting_location']"/>
                                 </td>
                                 <td>
-                                    <t t-out="data['product']"/>
+                                    <t t-out="data['ending_location']"/>
                                 </td>
                                 <td>
-                                    <t t-out="data['priority']"/>
+                                    <t t-out="data['expense_category']"/>
                                 </td>
                                 <td>
-                                    <t t-out="data['message']"/>
+                                    <t t-out="data['amount']"/>
+                                </td>
+                                <td>
+                                    <t t-out="data['hotel_name']"/>
+                                </td>
+                                <td>
+                                    <t t-out="data['hotel_address']"/>
+                                </td>
+                                <td>
+                                    <t t-out="data['hotel_phone']"/>
                                 </td>
                                 
                                 <td>
@@ -106,7 +121,7 @@
                                          style="max-width: 50px; max-height: 50px;"/>
                                 </td>
                                 <td>
-                                    <t t-out="data['nepalidatepicker']"/>
+                                    <t t-out="data['description']"/>
                                 </td>
                             </tr>
                         </t>
@@ -117,6 +132,7 @@
                     </div>
 
                 </div>
+</div>
   <script>
     // Function to hide all submenus
     function hideAllSubmenus() {
@@ -133,6 +149,7 @@
       subMenu.style.maxHeight = subMenu.style.maxHeight === '0px' ? subMenu.scrollHeight + 'px' : '0';
     }
   </script>
+
             </t>
         </template>
 </data>

@@ -76,11 +76,11 @@
                     <field name="product"/>
                     <field name="message"/>
                     <field name="priority"/>
-
+                   
                     <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
 
                     <field name="nepalidatepicker"/>
-                    <field name="progress" decoration-info="progress=='New'" decoration-warning="progress=='In progress'" decoration-success="progress=='Completed'" decoration-danger="progress=='Cancelled'" widget="badge" />
+                    <field name="status" decoration-info="status=='New'" decoration-warning="status=='In progress'" decoration-success="status=='Completed'" decoration-danger="status=='Cancelled'" widget="badge" />
                 </tree>
             </field>
         </record>
@@ -102,7 +102,7 @@
                                 type="object"/>
 
 
-                        <field name="progress" widget="statusbar" nolabel="1"
+                        <field name="status" widget="statusbar" nolabel="1"
                                statusbar_visible="New,In Progress,Completed,Cancelled"/>
                     </header>
                     <sheet>
@@ -205,7 +205,6 @@
                     <field name="nepalidatepicker"/>
                     <field name="amount"/>
                     <field name="description"/>
-<!--                    <field name="status"/>-->
                     <field name="expense_category"/>
                     <field name="starting_location"/>
                     <field name="ending_location"/>
@@ -240,7 +239,6 @@
                             <field name="nepalidatepicker"/>
                             <field name="amount"/>
                             <field name="description"/>
-<!--                            <field name="status"/>-->
                             <field name="expense_category"/>
                             <field name="starting_location"/>
                             <field name="ending_location"/>

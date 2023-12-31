@@ -69,8 +69,9 @@ class TicketController(http.Controller):
     def list_tickets(self, **kwargs):
         tickets = request.env["ticket.raise"].sudo().search([])
 
+        sorted_tickets = tickets.sorted(key=lambda r: r.ticket_id, reverse=True)
         data = []
-        for ticket in tickets:
+        for ticket in sorted_tickets:
             photo = ticket.photo.decode('utf-8') if ticket.photo else None
             data.append({
                 'ticket_id':ticket.ticket_id,
@@ -80,6 +81,7 @@ class TicketController(http.Controller):
                 'message': ticket.message,
                 'nepalidatepicker': ticket.nepalidatepicker,
                 'photo':photo,
+                'status':ticket.status,
             })
         return http.request.render(
             "support_sys.ticket_history",

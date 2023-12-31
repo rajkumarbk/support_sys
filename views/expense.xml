@@ -65,9 +65,9 @@
       <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
       
     </div>
-    <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
+    <a class="active" href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
     <div class="submenu" id="employeeSubMenu">
-      <a class="active" href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
+      <a  href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
       <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
     <a href="#">Profile</a>

@@ -46,10 +46,10 @@
 
   <div id="sidebar">
     <a href="/" ><i class="fa fa-fw fa-tachometer"/> Dashboard</a>
-    <a href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
+    <a class="active" href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
     <div class="submenu" id="clientSubMenu">
     <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
-      <a class="active" href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
+      <a  href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
       
     </div>
     <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
@@ -74,12 +74,14 @@
                                     <thead>
                         <tr class="active">
                             <th>Ticket ID</th>
+                            <th>Requested Date</th>
                             <th>Ticket Type</th>
                             <th>Product</th>
                             <th>Priority</th>
                             <th>Message</th>
                             <th>Photo</th>
-                            <th>Requested Date</th>
+                            <th>Status</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +89,9 @@
                             <tr>
                                 <td>
                                     <t t-out="data['ticket_id']"/>
+                                </td>
+                                 <td>
+                                    <t t-out="data['nepalidatepicker']"/>
                                 </td>
                                 <td>
                                     <t t-out="data['ticket_type']"/>
@@ -105,9 +110,10 @@
                                     <img t-if="data['photo']" t-att-src="'data:image/png;base64,'+data['photo']"
                                          style="max-width: 50px; max-height: 50px;"/>
                                 </td>
-                                <td>
-                                    <t t-out="data['nepalidatepicker']"/>
+                                 <td>
+                                    <t t-out="data['status']"/>
                                 </td>
+                               
                             </tr>
                         </t>
                     </tbody>

@@ -46,9 +46,9 @@
 
   <div id="sidebar">
     <a href="/" ><i class="fa fa-fw fa-tachometer"/> Dashboard</a>
-    <a href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
+    <a class="active" href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
     <div class="submenu" id="clientSubMenu">
-    <a class="active" href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
+    <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
       <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
       
     </div>

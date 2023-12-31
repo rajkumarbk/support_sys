@@ -70,7 +70,7 @@ class Ticket(models.Model):
     message = fields.Text(string='Message', required=True)
     priority = fields.Selection([('urgent', 'Urgent'), ('high', 'High'), ('medium', 'Medium'), ('low', 'Low')],
                                 string='Priority', tracking=True)
-    progress = fields.Selection(
+    status = fields.Selection(
         [('New', 'New'), ('In Progress', 'In Progress'), ('Completed', 'Completed'), ('Cancelled', 'Cancelled')],
         default='New', String="Progress", required=True, tracking=True)
     photo = fields.Binary(string='photo', tracking=True)
@@ -80,13 +80,13 @@ class Ticket(models.Model):
     # photo_filename = fields.Char(string='photo Filename')
 
     def action_confirm(self):
-        self.write({'progress': 'In Progress'})
+        self.write({'status': 'In Progress'})
 
     def action_decline(self):
-        self.write({'progress': 'Cancelled'})
+        self.write({'status': 'Cancelled'})
 
     def action_completed(self):
-        self.write({'progress': 'Completed'})
+        self.write({'status': 'Completed'})
 
     @api.model
     def create(self, vals):

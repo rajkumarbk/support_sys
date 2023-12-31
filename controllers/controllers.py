@@ -25,6 +25,7 @@ class EmployeeController(http.Controller):
                 'expense_category': expense.expense_category,
                 'amount': expense.amount,
                 'description': expense.description,
+                'status':expense.status,
                 'photo':photo,
             })
         return http.request.render(

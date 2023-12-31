@@ -41,6 +41,63 @@
       padding: 10px;
     }
 
+      <!-- td.status-new {
+        color: white;
+        background-color: blue;
+        display:block;
+        font-size:20px;
+      }
+
+      td.status-in-progress {
+        color: white;
+        background-color: #fd7e14;
+        font-size:20px;
+      }
+
+      td.status-cancelled {
+        color: white;
+        background-color: #870101;
+        font-size:20px;
+      }
+
+      td.status-completed {
+        color: white;
+        background-color: green;
+        font-size:20px;
+      } -->
+
+      td.status-box {
+                    margin-left: 21px;
+                    margin-right:21px;
+                    margin-top: 3px;
+                    border-radius: 50px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    }
+
+                    td.status-new {
+                    color: white;
+                    background-color: #17a2b8;
+                    }
+
+                    td.status-in-progress {
+                    color: black;
+                    background-color: #ffac00;
+                    }
+
+                    td.status-cancelled {
+                    color: white;
+                    background-color: #dc3545;
+                    }
+
+                    td.status-completed {
+                    color: white;
+                    background-color: #28a745;
+                    }
+
+
   </style>
 
 
@@ -74,7 +131,7 @@
                                     <thead>
                         <tr class="active">
                             <th>Ticket ID</th>
-                            <th>Requested Date</th>
+                            <th>Date</th>
                             <th>Ticket Type</th>
                             <th>Product</th>
                             <th>Priority</th>
@@ -110,9 +167,9 @@
                                     <img t-if="data['photo']" t-att-src="'data:image/png;base64,'+data['photo']"
                                          style="max-width: 50px; max-height: 50px;"/>
                                 </td>
-                                 <td>
-                                    <t t-out="data['status']"/>
-                                </td>
+                                  <td t-attf-class="status-box status-#{data['status'].lower().replace(' ', '-')}">
+                                                    <t t-out="data['status']"/>
+                                                </td>
                                
                             </tr>
                         </t>

@@ -41,6 +41,34 @@
     .submenu a {
       padding: 10px;
     }
+    td.status-box {
+                    margin-left: 21px;
+                    margin-right:21px;
+                    margin-top: 3px;
+                    border-radius: 50px;
+                    width:75%;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    }
+
+                    td.status-new {
+                    color: white;
+                    background-color: #17a2b8;
+                    }
+
+                 
+
+                    td.status-rejected {
+                    color: white;
+                    background-color: #dc3545;
+                    }
+
+                    td.status-accepted {
+                    color: white;
+                    background-color: #28a745;
+                    }
 
   </style>
 
@@ -63,7 +91,7 @@
 
 <div class="content">
 
-<div class="container-fluid" style="width:85%; margin-left:15%; margin-top:1%;">
+<div class="container-fluid" style="width:87%; margin-left:13%; margin-top:1%;">
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4" >
@@ -85,6 +113,7 @@
                             <th>Hotel Contact</th>
                             <th>Image</th>
                             <th>Description</th>
+                            <th>Status</th>
                             
                         </tr>
                     </thead>
@@ -123,6 +152,9 @@
                                 <td>
                                     <t t-out="data['description']"/>
                                 </td>
+                                 <td t-attf-class="status-box status-#{data['status'].lower().replace(' ', '-')}">
+                                                    <t t-out="data['status']"/>
+                                                </td>
                             </tr>
                         </t>
                     </tbody>

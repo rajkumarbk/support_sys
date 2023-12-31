@@ -80,7 +80,7 @@
                     <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
 
                     <field name="nepalidatepicker"/>
-                    <field name="status" decoration-info="status=='New'" decoration-warning="status=='In progress'" decoration-success="status=='Completed'" decoration-danger="status=='Cancelled'" widget="badge" />
+                    <field name="status" decoration-info="status=='New'" decoration-warning="status=='In Progress'" decoration-success="status=='Completed'" decoration-danger="status=='Cancelled'" widget="badge" />
                 </tree>
             </field>
         </record>
@@ -100,6 +100,7 @@
 
                         <button id="action_decline" name="action_decline" string="DECLINE" class="btn-danger"
                                 type="object"/>
+                                
 
 
                         <field name="status" widget="statusbar" nolabel="1"

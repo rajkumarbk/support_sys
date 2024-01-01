@@ -54,7 +54,7 @@
     </div>
     <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
     <div class="submenu" id="employeeSubMenu">
-      <a href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
+      <a href="new_expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
       <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
     <a href="#">Profile</a>
@@ -90,6 +90,7 @@
                         <label for="product" style="font-size: 14px; margin-bottom: 8px;">Product</label>
                         <select name="product" required="true"
                                 style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+                             <option value="">--Product Type--</option>
                             <option value="Software">Software</option>
                             <option value="Website">Website</option>
                             <option value="Internet">Internet</option>
@@ -99,17 +100,14 @@
                         <label for="priority" style="font-size: 14px; margin-bottom: 8px;">Priority</label>
                         <select name="priority" required="true"
                                 style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
-                            <option value="">--Select Priority--</option>
+                            <option value="">--Select a Priority--</option>
                             <option value="urgent">Urgent</option>
                             <option value="high">High</option>
                             <option value="medium">Medium</option>
                             <option value="low">Low</option>
                         </select>
 
-                        <label for="message" style="font-size: 14px; margin-bottom: 8px;">Message</label>
-                        <textarea name="message" rows="4"
-                                  style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"
-                                  required="True"></textarea>
+                        
                         <label for="client_email" style="font-size: 14px; margin-bottom: 8px;">Your Email</label>
                             <input type="email" name="client_email" required="true"
                                style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"/>
@@ -118,8 +116,12 @@
                         <label for="photo" style="font-size: 14px; margin-bottom: 8px;">Upload Photo</label>
                         <input type="file" name="photo" accept=".jpg, .jpeg, .png" style="margin-bottom: 16px;"/>
                         <img id="image-preview" src="#" alt="Image Preview"
-                             style="max-width: 100%; max-height: 150px; margin-bottom: 16px; display: none;"/>
-                        <br></br>
+                             style="max-width: 100%; max-height: 150px; margin-bottom: 16px; display: none;"/> <br></br>
+                             <label for="message" style="font-size: 14px; margin-bottom: 8px;">Message</label>
+                        <textarea name="message" rows="4"
+                                  style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"
+                                  required="True"></textarea>
+                       
                                                 <label for="employee" style="font-size: 14px; margin-bottom: 8px;">Ticket Issued Date:</label>
                                                 <input type="text" id="nepalidatepicker" name="nepalidatepicker" reaonly="True"  required="True" style="border-style:;"/>
 <!--                                                <script>-->

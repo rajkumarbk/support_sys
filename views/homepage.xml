@@ -54,7 +54,7 @@
     </div>
     <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
     <div class="submenu" id="employeeSubMenu">
-      <a href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
+      <a href="new_expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
       <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
     <a href="#">Profile</a>

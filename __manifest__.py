@@ -16,7 +16,7 @@
         'views/homepage.xml',
         'views/new_ticket.xml',
         'views/ticket_history.xml',
-        'views/expense.xml',       
+        'views/new_expense.xml',       
         'views/expense_history.xml',
         'views/email_template.xml',
 

@@ -108,16 +108,12 @@
                     </header>
                     <sheet>
                         <group>
-                            <group>
                                 <field name="ticket_type"/>
                                 <field name="product"/>
                                 <field name="message"/>
                                 <field name="priority"/>
                                 <field name="nepalidatepicker"/>
-                            </group>
-                            <group>
-                                <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
-                            </group>
+                                <field name="photo" string="Image" widget="image" options='{"enableZoom": "image"}'/>
                         </group>
                     </sheet>
                     <div class="oe_chatter">
@@ -243,7 +239,7 @@
                             <field name="expense_category"/>
                             <field name="starting_location"/>
                             <field name="ending_location"/>
-                            <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+                            <field name="photo" string="Image" widget="image" options='{"enableZoom": "image"}'/>
                             <field name="hotel_name"/>
                             <field name="hotel_address"/>
                             <field name="hotel_phone"/>

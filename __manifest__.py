@@ -7,7 +7,7 @@
     'sequence': 1,
 
     # any module necessary for this one to work correctly
-    'depends': ['base','web','sale','board','mail'],
+    'depends': ['base','web','sale','board','mail','hr'],
 
     # always loaded
     'data': [
@@ -23,7 +23,7 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        'demo/demo.xml',    
     ],
     'assets': {
         'web.assets_backend': [

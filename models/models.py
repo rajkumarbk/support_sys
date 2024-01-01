@@ -96,17 +96,13 @@ class Ticket(models.Model):
 
 
 class Employee(models.Model):
-    _name = 'employee.details'
-    _description = 'employee'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    # _name = 'employee.details'
+
+    _inherit = ['hr.employee']
+
     employee_id = fields.Char(string='Sequence Number')
-    employee_name = fields.Char(string='Employee Name', tracking=True)
-    contact = fields.Char(tracking=True)
-    address = fields.Char(tracking=True)
-    department = fields.Char(tracking=True)
-    position = fields.Char(tracking=True)
-    salary = fields.Integer(tracking=True)
-    date_joined = fields.Date(tracking=True)
+    employee_name = fields.Char(string='Employee Name')
+   
     _sql_constraints = [
         ('employee_id_uniq', 'unique(employee_id)', 'Employee ID must be unique!'),
     ]

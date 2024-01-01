@@ -50,15 +50,14 @@
     <div class="submenu" id="clientSubMenu">
     <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
       <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
-      
     </div>
     <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
     <div class="submenu" id="employeeSubMenu">
       <a href="new_expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
       <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
+    <a href="#"><i class="fa fa-user-circle" /> Profile</a>
+    <a href="#"><i class="fa fa-cog" /> Setting</a>
   </div>
 <div class="content">
 

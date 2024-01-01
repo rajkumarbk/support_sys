@@ -116,8 +116,8 @@
       <a href="new_expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
       <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
     </div>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
+     <a href="#"><i class="fa fa-user-circle" /> Profile</a>
+    <a href="#"><i class="fa fa-cog" /> Setting</a>
   </div>
 
 <div class="container-fluid" style="width:85%; margin-left:15%; margin-top:1%;">

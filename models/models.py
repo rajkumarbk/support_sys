@@ -71,7 +71,7 @@ class Ticket(models.Model):
     priority = fields.Selection([('urgent', 'Urgent'), ('high', 'High'), ('medium', 'Medium'), ('low', 'Low')],
                                 string='Priority', tracking=True)
     status = fields.Selection(
-        [('New', 'New'), ('In Progress', 'In Progress'), ('Completed', 'Completed'), ('Cancelled', 'Cancelled')],
+        [('New', 'New'), ('In Progress', 'In Progress'), ('Completed', 'Completed'), ('Declined', 'Declined')],
         default='New', String="Progress", required=True, tracking=True)
     photo = fields.Binary(string='photo', tracking=True)
     nepalidatepicker = fields.Date(string='Requested date', required=True, tracking=True)
@@ -83,7 +83,7 @@ class Ticket(models.Model):
         self.write({'status': 'In Progress'})
 
     def action_decline(self):
-        self.write({'status': 'Cancelled'})
+        self.write({'status': 'Declined'})
 
     def action_completed(self):
         self.write({'status': 'Completed'})
@@ -139,9 +139,9 @@ class Employee(models.Model):
         ending_location = fields.Char(string='Ending Location', tracking=True)
 
         photo = fields.Binary("Bill Image", tracking=True)
-        hotel_name = fields.Char("Hotel Name")
-        hotel_address = fields.Char("Address",tracking=True)
-        hotel_phone = fields.Char("Phone", tracking=True) 
+        hotel_name = fields.Char("H Name")
+        hotel_address = fields.Char("H Address",tracking=True)
+        hotel_phone = fields.Char("H Contact", tracking=True) 
         def action_accepted(self):
             self.write({'status': 'Accepted'})
 

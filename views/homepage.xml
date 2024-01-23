@@ -1,0 +1,85 @@
+<odoo>
+<data>
+ <template id="homepage" name="homepage">
+            <t t-call="website.layout">
+   <style>
+
+    #sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      background-color: #f1f1f1;
+      padding-top: 0px; /* Adjusted padding to make space for the logo */
+    }
+
+    #sidebar a {
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block;
+    }
+
+    #sidebar a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    #sidebar a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      padding-left: 20px;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .submenu a {
+      padding: 10px;
+    }
+
+  </style>
+
+
+  <div id="sidebar">
+    <a class="active"  href="/" ><i class="fa fa-fw fa-tachometer"/>Dashboard</a>
+    <a href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
+    <div class="submenu" id="clientSubMenu">
+    <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
+      <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
+      
+    </div>
+    <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
+    <div class="submenu" id="employeeSubMenu">
+      <a href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
+      <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
+    </div>
+    <a href="#">Profile</a>
+    <a href="#">Settings</a>
+  </div>
+<div class="content">
+
+</div>
+  <script>
+    // Function to hide all submenus
+    function hideAllSubmenus() {
+      var submenus = document.querySelectorAll('.submenu');
+      submenus.forEach(function (submenu) {
+        submenu.style.maxHeight = '0';
+      });
+    }
+
+    // Function to toggle visibility of a submenu
+    function toggleSubMenu(subMenuId) {
+      hideAllSubmenus();
+      var subMenu = document.getElementById(subMenuId);
+      subMenu.style.maxHeight = subMenu.style.maxHeight === '0px' ? subMenu.scrollHeight + 'px' : '0';
+    }
+  </script>
+            </t>
+        </template>
+</data>
+</odoo>

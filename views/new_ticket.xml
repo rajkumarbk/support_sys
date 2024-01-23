@@ -1,0 +1,178 @@
+<odoo>
+<data>
+ <template id="new_ticket" name="New Ticket">
+            <t t-call="website.layout">
+           <style>
+
+    #sidebar {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      background-color: #f1f1f1;
+      padding-top: 0px; /* Adjusted padding to make space for the logo */
+    }
+
+    #sidebar a {
+      padding: 16px;
+      text-decoration: none;
+      font-size: 18px;
+      color: black;
+      display: block;
+    }
+
+    #sidebar a.active {
+      background-color: #04AA6D;
+      color: white;
+    }
+
+    #sidebar a:hover:not(.active) {
+      background-color: #555;
+      color: white;
+    }
+
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      padding-left: 20px;
+      transition: max-height 0.3s ease-out;
+    }
+
+    .submenu a {
+      padding: 10px;
+    }
+
+  </style>
+
+
+  <div id="sidebar">
+    <a href="/" ><i class="fa fa-fw fa-tachometer"/> Dashboard</a>
+    <a class="active" href="#" onclick="toggleSubMenu('clientSubMenu')"><i class="fa fa-fw fa-user" /> Client</a>
+    <div class="submenu" id="clientSubMenu">
+    <a  href="new_ticket"><i class="fa fa-fw fa-plus" /> New Request</a>
+      <a href="ticket_history"><i class="fa fa-history" /> Ticket History</a>
+      
+    </div>
+    <a href="#" onclick="toggleSubMenu('employeeSubMenu')"><i class="fa fa-fw fa-users"/> Employee</a>
+    <div class="submenu" id="employeeSubMenu">
+      <a href="expense"><i class="fa fa-fw fa-plus" /> New Expense</a>
+      <a href="expense_history"><i class="fa fa-history" /> Expense History</a>
+    </div>
+    <a href="#">Profile</a>
+    <a href="#">Settings</a>
+  </div>
+
+<div class="content">
+  
+<script src="https://nepalidatepicker.sajanmaharjan.com.np/nepali.datepicker/js/nepali.datepicker.v4.0.1.min.js" type="text/javascript"></script>
+
+                <div class="container">
+                    <script>
+                        function myFunction() {
+                        alert("Your ticket has been submitted");
+                        }
+                    </script>
+                    <form action="/ticket_raise" method="post" onsubmit="myFunction()" enctype="multipart/form-data"
+                          style="max-width: 600px; margin: auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <h3>Raise a Ticket</h3>
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <!-- Input fields for ticket raise form -->
+                        <label for="ticket_type" style="font-size: 14px; margin-bottom: 8px;">Ticket Type</label>
+                        <select name="ticket_type" required="true"
+                                style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+                            <option value="">--Select a category--</option>
+                            <option value="complain">Complain</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="query">Query</option>
+                            <option value="request">Request</option>
+                        </select>
+
+                        <label for="product" style="font-size: 14px; margin-bottom: 8px;">Product</label>
+                        <select name="product" required="true"
+                                style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+                            <option value="Software">Software</option>
+                            <option value="Website">Website</option>
+                            <option value="Internet">Internet</option>
+                           
+                        </select>
+
+                        <label for="priority" style="font-size: 14px; margin-bottom: 8px;">Priority</label>
+                        <select name="priority" required="true"
+                                style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+                            <option value="">--Select Priority--</option>
+                            <option value="urgent">Urgent</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+
+                        <label for="message" style="font-size: 14px; margin-bottom: 8px;">Message</label>
+                        <textarea name="message" rows="4"
+                                  style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"
+                                  required="True"></textarea>
+                        <label for="client_email" style="font-size: 14px; margin-bottom: 8px;">Your Email</label>
+                            <input type="email" name="client_email" required="true"
+                               style="width: 100%; padding: 10px; margin-bottom: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;"/>
+
+                        <!-- Photo Upload Section -->
+                        <label for="photo" style="font-size: 14px; margin-bottom: 8px;">Upload Photo</label>
+                        <input type="file" name="photo" accept=".jpg, .jpeg, .png" style="margin-bottom: 16px;"/>
+                        <img id="image-preview" src="#" alt="Image Preview"
+                             style="max-width: 100%; max-height: 150px; margin-bottom: 16px; display: none;"/>
+                        <br></br>
+                                                <label for="employee" style="font-size: 14px; margin-bottom: 8px;">Ticket Issued Date:</label>
+                                                <input type="text" id="nepalidatepicker" name="nepalidatepicker" reaonly="True"  required="True" style="border-style:;"/>
+<!--                                                <script>-->
+                        <!--                            document.addEventListener('DOMContentLoaded', function() {-->
+                        <!--                                var today = new Date().toISOString().slice(0, 10);-->
+                        <!--                                document.getElementById('nepalidatepicker').value = today;-->
+                        <!--                            });-->
+                        <!--                        </script>-->
+
+
+
+
+
+
+
+                        <br></br>
+
+                        <button type="submit"
+                                style="background-color: #4caf50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
+                            Submit Ticket
+                        </button>
+                        <button style="background-color: #4caf50; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;"
+                                onclick="location.href='/ticket_history'">Back
+                        </button>
+                    </form>
+                </div>
+                <script type="text/javascript">
+                            window.onload = function () {
+                            var mainInput = document.getElementById("nepalidatepicker");
+                            mainInput.nepaliDatePicker();
+                            };
+                        </script>
+                        <script>
+    // Function to hide all submenus
+    function hideAllSubmenus() {
+      var submenus = document.querySelectorAll('.submenu');
+      submenus.forEach(function (submenu) {
+        submenu.style.maxHeight = '0';
+      });
+    }
+
+    // Function to toggle visibility of a submenu
+    function toggleSubMenu(subMenuId) {
+      hideAllSubmenus();
+      var subMenu = document.getElementById(subMenuId);
+      subMenu.style.maxHeight = subMenu.style.maxHeight === '0px' ? subMenu.scrollHeight + 'px' : '0';
+    }
+  </script>
+
+</div>
+
+
+            </t>
+        </template>
+</data>
+</odoo>

@@ -1,0 +1,394 @@
+<odoo>
+    <data>
+
+
+        <!-- Overview List View -->
+        <record model="ir.ui.view" id="view_support_sys_list">
+            <field name="name">SupportSys List</field>
+            <field name="model">support_sys.support_sys</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="c_id"/>
+                    <field name="name"/>
+                    <!--                    <field name="message"/>-->
+                    <field name="image" string="Image" widget="image" options="{'size':[45,45]}"/>
+                    <field name="issue_description"/>
+                    <field name="support_type"/>
+                    <field name="assigned_employee"/>
+                    <field name="status"/>
+                    <field name="day_field"/>
+
+                    <field name="month_field" string="Date"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for SupportSys -->
+        <record model="ir.ui.view" id="view_support_sys_form">
+            <field name="name">SupportSys Form</field>
+            <field name="model">support_sys.support_sys</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="c_id"/>
+                                <field name="name"/>
+
+                                <field name="issue_description"/>
+                                <field name="month_field" string="Date"/>
+                            </group>
+                            <group>
+                                <field name="support_type"/>
+                                <field name="image"/>
+                                <field name="status"/>
+                                <field name="assigned_employee"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action for Opening SupportSys List View -->
+        <record model="ir.actions.act_window" id="action_support_sys_list">
+            <field name="name">SupportSys Window</field>
+            <field name="res_model">support_sys.support_sys</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_support_sys_list"/>
+        </record>
+
+        <!-- Ticket List View -->
+        <!-- Ticket List View -->
+        <record model="ir.ui.view" id="view_ticket_list">
+            <field name="name">Ticket List</field>
+            <field name="model">ticket.raise</field>
+            <field name="arch" type="xml">
+                <tree string="Ticket Information" default_order="ticket_id desc">
+                    <!--                    <field name="name"/>-->
+                    <field name="ticket_id"/>
+                    <field name="ticket_type"/>
+                    <field name="product"/>
+                    <field name="message"/>
+                    <field name="priority"/>
+                    <field name="department_id" on_change="on_department_change(name_id)"/>
+                    <field name="name_id" widget="selection" options="{'no_create':True}"/>
+                    <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+
+                    <field name="nepalidatepicker"/>
+                    <field name="status" decoration-info="status=='New'" decoration-warning="status=='In Progress'"
+                           decoration-success="status=='Completed'" decoration-danger="status=='Cancelled'"
+                           widget="badge"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Form View for Ticket -->
+        <record model="ir.ui.view" id="view_ticket_form">
+            <field name="name">Ticket Form</field>
+            <field name="model">ticket.raise</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button id="action_confirm" name="action_confirm" string="Confirm" class="btn-primary"
+                                type="object"/>
+                        <button id="action_completed" name="action_completed" string="COMPLETE" class="btn-success"
+                                type="object"/>
+
+                        <button id="action_decline" name="action_decline" string="DECLINE" class="btn-danger"
+                                type="object"/>
+
+
+                        <field name="status" widget="statusbar" nolabel="1"
+                               statusbar_visible="New,In Progress,Completed,Cancelled"/>
+                    </header>
+                    <sheet>
+                        <group>
+
+                            <field name="ticket_type"/>
+                            <field name="product"/>
+                            <field name="message"/>
+                            <field name="priority"/>
+                            <field name="nepalidatepicker"/>
+                            <field name="department_id" on_change="on_department_change(name_id)" />
+                            <field name="name_id" widget="selection" options="{'no_create': True}"/>
+
+                            <field name="photo" string="Image" widget="image" options='{"enableZoom": "image"}'/>
+
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Action for Opening Ticket List View -->
+        <record model="ir.actions.act_window" id="action_ticket_list">
+            <field name="name">Ticket Window</field>
+            <field name="res_model">ticket.raise</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ticket_list"/>
+        </record>
+
+        <!--        <record model="ir.ui.view" id="view_kanban">-->
+        <!--            <field name="name">Hr Employee List</field>-->
+        <!--            <field name="model">hr.employee</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <tree>-->
+        <!--                    <field name="is_available"/>-->
+
+        <!--                </tree>-->
+        <!--            </field>-->
+        <!--        </record>-->
+
+
+        <!--        &lt;!&ndash; Form View for Ticket &ndash;&gt;-->
+        <!--        <record model="ir.ui.view" id="view_employee_form">-->
+        <!--            <field name="name">Employee</field>-->
+        <!--            <field name="model">employee.details</field>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <form>-->
+        <!--                    <sheet>-->
+        <!--                        <group>-->
+
+
+        <!--                            <field name="employee_name"/>-->
+        <!--                            <field name="contact"/>-->
+        <!--                            <field name="address"/>-->
+        <!--                            <field name="department"/>-->
+        <!--                            <field name="position"/>-->
+        <!--                            <field name="salary"/>-->
+        <!--                            <field name="date_joined"/>-->
+
+        <!--                            &lt;!&ndash; Add more fields as needed &ndash;&gt;-->
+        <!--                        </group>-->
+        <!--                    </sheet>-->
+        <!--                    <div class="oe_chatter">-->
+        <!--                        <field name="message_follower_ids"/>-->
+        <!--                        <field name="activity_ids"/>-->
+        <!--                        <field name="message_ids" options="{'post_refresh': 'recipients'}"/>-->
+        <!--                    </div>-->
+
+        <!--                </form>-->
+        <!--            </field>-->
+        <!--        </record>-->
+        <record id="hr_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="mobile_phone" position="after">
+                    <field name="is_available"/>
+
+
+                </field>
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                    <page name="hr_Setting" string="My Work">
+                        <group>
+                            <field name="Title"/>
+                                <field name="Ticket_num"/>
+                                <field name="e_priority"/>
+                                <field name="problem"/>
+                            <field name="e_image" string="photo" widget="image" options='{"enableZoom": "image"}'/>
+
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_hr_employee_tree">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/> <!-- Replace with your actual tree view reference -->
+            <field name="arch" type="xml">
+                <field name="work_phone" position="after">
+                    <field name="is_available"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_employee_list">
+            <field name="name">Employee</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--            <field name="view_id" ref="hr_tree_form"/>-->
+        </record>
+
+        <!-- expense code goes here -->
+        <record model="ir.ui.view" id="view_expense_list">
+            <field name="name">Expense Request</field>
+            <field name="model">employee.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Expenses" default_order="nepalidatepicker desc">
+                    <field name="nepalidatepicker"/>
+                    <field name="amount"/>
+                    <field name="description"/>
+                    <field name="expense_category"/>
+                    <field name="starting_location"/>
+                    <field name="ending_location"/>
+                    <field name="photo" string="Image" widget="image" options="{'size':[45, 45]}"/>
+                    <field name="status" decoration-info="status=='New'" decoration-success="status=='Accepted'"
+                           decoration-danger="status=='Rejected'" widget="badge"/>
+                    <field name="hotel_name"/>
+                    <field name="hotel_address"/>
+                    <field name="hotel_phone"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Form View for Ticket -->
+        <record model="ir.ui.view" id="view_expense_form">
+            <field name="name">Employee</field>
+            <field name="model">employee.expense</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button id="action_accepted" name="action_accepted" string="ACCEPT" class="btn-success"
+                                type="object"/>
+                        <button id="action_rejected" name="action_rejected" string="REJECT" class="btn-danger"
+                                type="object"/>
+
+                        <field name="status" widget="statusbar" nolabel="1" statusbar_visible="Accepted,Rejected"/>
+                    </header>
+                    <sheet>
+                        <group>
+
+
+                            <field name="nepalidatepicker"/>
+                            <field name="amount"/>
+                            <field name="description"/>
+                            <field name="expense_category"/>
+                            <field name="starting_location"/>
+                            <field name="ending_location"/>
+                            <field name="photo" string="Image" widget="image" options='{"enableZoom": "image"}'/>
+                            <field name="hotel_name"/>
+                            <field name="hotel_address"/>
+                            <field name="hotel_phone"/>
+
+                            <!-- Add more fields as needed -->
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids" options="{'post_refresh': 'nepalidatepicker'}"/>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_expense_list">
+            <field name="name">Expenses</field>
+            <field name="res_model">employee.expense</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_expense_list"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_departments_list">
+            <field name="name">Departments</field>
+            <field name="res_model">hr.department</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+
+        <record id="sequence_ticket" model="ir.sequence">
+            <field name="name">Ticket Sequence</field>
+            <field name="code">ticket.raise</field>
+            <field name="prefix">Tic.No.</field>
+            <field name="padding">2</field>
+            <field name="number_increment" eval="1"/>
+        </record>
+
+
+        <!-- Reporting Tree View -->
+        <record id="view_task_status_tree" model="ir.ui.view">
+            <field name="name">Task Status Tree View</field>
+            <field name="model">support_sys.support_sys</field>
+            <field name="arch" type="xml">
+                <tree>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action for Opening Reporting Tree View -->
+        <record model="ir.actions.act_window" id="action_reporting">
+            <field name="name">Reporting</field>
+            <field name="res_model">support_sys.support_sys</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_task_status_tree"/>
+        </record>
+
+        <!-- Top Menu Item -->
+        <menuitem name="Support_Sys" id="menu_root"/>
+
+        <!-- Menu Categories -->
+        <menuitem name="Overview" id="support_sys_menu_1" parent="menu_root" action="action_support_sys_list"/>
+        <menuitem name="Ticket" id="support_sys_menu_2" parent="menu_root" action="action_ticket_list"/>
+        <menuitem name="Employee" id="support_sys_menu_3" parent="menu_root" action="action_employee_list"/>
+        <!--<menuitem name="Reporting" id="support_sys_menu_4" parent="menu_root" action="action_reporting"/>-->
+        <menuitem name="Configuration" id="support_sys_menu_5" parent="menu_root" action="action_support_sys_list"/>
+
+        <!-- Dashboard Action -->
+        <record id="action_backend_dashboard" model="ir.actions.client">
+            <field name="name">Dashboard</field>
+            <field name="tag">dashboard.owl.new.registry</field>
+        </record>
+
+        <record id="action_employee_list" model="ir.actions.act_window">
+            <field name="name">Details</field>
+        </record>
+
+        <record id="action_expense_list" model="ir.actions.act_window">
+            <field name="name">Expense Request</field>
+        </record>
+        <record id="action_departments_list" model="ir.actions.act_window">
+            <field name="name">Departments</field>
+        </record>
+
+        <!-- Menu item for Dashboard -->
+        <menuitem id="menu_reporting_dashboard"
+                  name="Dashboard"
+                  action="action_backend_dashboard"
+                  parent="support_sys_menu_1"
+                  sequence="1"/>
+
+        <menuitem id="menu_employee_details"
+                  name="Details"
+                  action="action_employee_list"
+                  parent="support_sys_menu_3"
+                  sequence="1"/>
+
+
+        <menuitem id="menu_employee_expense"
+                  name="Expense Request"
+                  action="action_expense_list"
+                  parent="support_sys_menu_3"
+                  sequence="2"/>
+
+        <menuitem id="menu_employee_department"
+                  name="Departments"
+                  action="action_departments_list"
+                  parent="support_sys_menu_3"
+                  sequence="3"/>
+
+
+    </data>
+</odoo>

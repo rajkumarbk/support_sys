@@ -1,0 +1,225 @@
+<odoo>
+    <data>
+        <template id="ticket_history" name="ticket_history">
+            <t t-call="website.layout">
+                <style>
+
+                    #sidebar {
+                    height: 100%;
+                    width: 200px;
+                    position: fixed;
+                    background-color: #f1f1f1;
+                    padding-top: 0px; /* Adjusted padding to make space for the logo */
+                    z-index:1;
+                    }
+
+                    #sidebar a {
+                    padding: 16px;
+                    text-decoration: none;
+                    font-size: 18px;
+                    color: black;
+                    display: block;
+                    }
+
+                    #sidebar a.active {
+                    background-color: #04AA6D;
+                    color: white;
+                    }
+
+                    #sidebar a:hover:not(.active) {
+                    background-color: #555;
+                    color: white;
+                    }
+
+                    .submenu {
+                    max-height: 0;
+                    overflow: hidden;
+                    padding-left: 20px;
+                    transition: max-height 0.3s ease-out;
+                    }
+
+                    .submenu a {
+                    padding: 10px;
+                    }
+
+                    <!-- td.status-new {
+                      color: white;
+                      background-color: blue;
+                      display:block;
+                      font-size:20px;
+                    }
+
+                    td.status-in-progress {
+                      color: white;
+                      background-color: #fd7e14;
+                      font-size:20px;
+                    }
+
+                    td.status-cancelled {
+                      color: white;
+                      background-color: #870101;
+                      font-size:20px;
+                    }
+
+                    td.status-completed {
+                      color: white;
+                      background-color: green;
+                      font-size:20px;
+                    } -->
+
+                    td.status-box {
+                    margin-left: 21px;
+                    margin-right:21px;
+                    margin-top: 3px;
+                    border-radius: 50px;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    }
+
+                    td.status-new {
+                    color: white;
+                    background-color: #17a2b8;
+                    }
+
+                    td.status-in-progress {
+                    color: black;
+                    background-color: #ffac00;
+                    }
+
+                    td.status-cancelled {
+                    color: white;
+                    background-color: #dc3545;
+                    }
+
+                    td.status-completed {
+                    color: white;
+                    background-color: #28a745;
+                    }
+
+
+                </style>
+
+
+                <div id="sidebar">
+                    <a href="/">
+                        <i class="fa fa-fw fa-tachometer"/>
+                        Dashboard
+                    </a>
+                    <a class="active" href="#" onclick="toggleSubMenu('clientSubMenu')">
+                        <i class="fa fa-fw fa-user"/>
+                        Client
+                    </a>
+                    <div class="submenu" id="clientSubMenu">
+                        <a href="new_ticket">
+                            <i class="fa fa-fw fa-plus"/>
+                            New Request
+                        </a>
+                        <a href="ticket_history">
+                            <i class="fa fa-history"/>
+                            Ticket History
+                        </a>
+
+                    </div>
+                    <a href="#" onclick="toggleSubMenu('employeeSubMenu')">
+                        <i class="fa fa-fw fa-users"/>
+                        Employee
+                    </a>
+                    <div class="submenu" id="employeeSubMenu">
+                        <a href="expense">
+                            <i class="fa fa-fw fa-plus"/>
+                            New Expense
+                        </a>
+                        <a href="expense_history">
+                            <i class="fa fa-history"/>
+                            Expense History
+                        </a>
+                    </div>
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                </div>
+
+                <div class="container-fluid" style="width:85%; margin-left:15%; margin-top:1%;">
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Ticket History</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr class="active">
+                                            <th>Ticket ID</th>
+                                            <th>Date</th>
+                                            <th>Ticket Type</th>
+                                            <th>Product</th>
+                                            <th>Priority</th>
+                                            <th>Message</th>
+                                            <th>Photo</th>
+                                            <th>Status</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="records" t-as="data">
+                                            <tr>
+                                                <td>
+                                                    <t t-out="data['ticket_id']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="data['nepalidatepicker']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="data['ticket_type']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="data['product']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="data['priority']"/>
+                                                </td>
+                                                <td>
+                                                    <t t-out="data['message']"/>
+                                                </td>
+
+                                                <td>
+                                                    <img t-if="data['photo']"
+                                                         t-att-src="'data:image/png;base64,'+data['photo']"
+                                                         style="max-width: 50px; max-height: 50px;"/>
+                                                </td>
+                                                <td t-attf-class="status-box status-#{data['status'].lower().replace(' ', '-')}">
+                                                    <t t-out="data['status']"/>
+                                                </td>
+
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <script>
+                    // Function to hide all submenus
+                    function hideAllSubmenus() {
+                    var submenus = document.querySelectorAll('.submenu');
+                    submenus.forEach(function (submenu) {
+                    submenu.style.maxHeight = '0';
+                    });
+                    }
+
+                    // Function to toggle visibility of a submenu
+                    function toggleSubMenu(subMenuId) {
+                    hideAllSubmenus();
+                    var subMenu = document.getElementById(subMenuId);
+                    subMenu.style.maxHeight = subMenu.style.maxHeight === '0px' ? subMenu.scrollHeight + 'px' : '0';
+                    }
+                </script>
+            </t>
+        </template>
+    </data>
+</odoo>
